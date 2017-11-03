@@ -1,3 +1,11 @@
+/**
+  Sarah Lasman and Amanda Galemmo
+  2278776          2270004
+  lasma101@mail.chapman.edu  galem100@mail.chapman.edu
+  CS 350 Section 3
+  Assignment #2
+**/
+
 #include "DoubleListNode.h"
 
 template <class T>
@@ -24,6 +32,7 @@ class Queue
     DoublyLinkedList<T>* myQueue;
 };
 
+//Constructor
 template <class T>
 Queue<T>::Queue(int maxSize)
 {
@@ -32,12 +41,14 @@ Queue<T>::Queue(int maxSize)
   myQueue = new DoublyLinkedList<T>();
 }
 
+//Destructor
 template <class T>
 Queue<T>::~Queue()
 {
   delete myQueue;
 }
 
+//Takes a data value and pushes it into queue
 template <class T>
 void Queue<T>::insert(T data)
 {
@@ -58,6 +69,7 @@ void Queue<T>::insert(T data)
     cerr << "Your queue is full. You cannot add more.\n";
 }
 
+//Removes the last in value from queue
 template <class T>
 T Queue<T>::remove()
 {
@@ -79,18 +91,21 @@ T Queue<T>::remove()
   }
 }
 
+//Looks at last in value of queue
 template <class T>
 T Queue<T>::peek()
 {
   return myQueue->front->data;
 }
 
+//Check if full
 template <class T>
 bool Queue<T>::isFull()
 {
   return numElements == max;
 }
 
+//Check if empty
 template <class T>
 bool Queue<T>::isEmpty()
 {
