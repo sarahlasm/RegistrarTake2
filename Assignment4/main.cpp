@@ -1,9 +1,15 @@
 /**
-@TODO
-  - Keep track of all the data we need to.
-  - Perform data analysis at the end.
-  - Fix destructors.
-  - Do students ever leave when they're done?
+  Sarah Lasman and Amanda Galemmo
+  2278776          2270004
+  lasma101@mail.chapman.edu  galem100@mail.chapman.edu
+  CS 350 Section 3
+  Assignment #2
+**/
+
+/*
+The crux of the work is done in this class.
+The file is read, instances of various objects are created, and the simulation is conducted.
+It is a bit big for a main class, but it worked best to keep everything in the same class.
 */
 
 #include "Queue.h"

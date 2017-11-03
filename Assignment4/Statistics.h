@@ -1,17 +1,18 @@
+/**
+  Sarah Lasman and Amanda Galemmo
+  2278776          2270004
+  lasma101@mail.chapman.edu  galem100@mail.chapman.edu
+  CS 350 Section 3
+  Assignment #4
+**/
+
+/*
+A class that performs statistics and analyzes the data from the main class.
+*/
+
 #include <iostream>
 
 using namespace std;
-/*
-  1. The mean student wait time.
-  2. The median student wait time.   [maybe a BST??]
-  3. The longest student wait time.
-  4. The number of students waiting over 10 minutes
-  5. The mean window idle time
-  6. The longest window idle time
-  7. Number of windows idle for over 5 minutes.
-*/
-
-//introduce a doubly linked list that keeps track of median/longest
 
 class Statistics
 {
@@ -40,9 +41,14 @@ class Statistics
     void printStats();
 };
 
+/**
+Constructor
+Sets all variables to 0
+*/
 Statistics::Statistics()
 {
   wait = new DoublyLinkedList<int>();
+  wait->insertFront(-1);
   studentsServed = 0;
   totalStudentWaitTime = 0;
   totalIdleTime = 0;
@@ -50,6 +56,11 @@ Statistics::Statistics()
   longestStudentWaitTime = 0;
 }
 
+/**
+Overloaded Constructor
+Sets all variables to 0
+Parameter n - number of windows (needed for calculating mean window idle time)
+*/
 Statistics::Statistics(int n)
 {
   wait = new DoublyLinkedList<int>();
@@ -62,11 +73,19 @@ Statistics::Statistics(int n)
   numWindows = n;
 }
 
+/**
+Destructor
+*/
 Statistics::~Statistics()
 {
   delete wait;
 }
 
+/**
+takeStudent is called every time a student is finished at a window.
+It records their wait time, and marks it everywhere that's necessary.
+Parameter s - student that has finished
+*/
 void Statistics::takeStudent(Student s)
 {
   studentsServed++;
@@ -78,11 +97,13 @@ void Statistics::takeStudent(Student s)
     numOverTen++;
   if (timeWaited > longestStudentWaitTime)
     longestStudentWaitTime = timeWaited;
-  //then add this to a list that orders based on value
   cout << "Total wait time " << totalStudentWaitTime << endl;
-  //delete &s;
 }
 
+/**
+takeIdle is called every time a window is idle to record its information
+Parameter idly - length of time that window was idle
+*/
 void Statistics::takeIdle(int idly)
 {
   increaseTotalIdle(idly);
@@ -92,21 +113,40 @@ void Statistics::takeIdle(int idly)
     longestIdleTime = idly;
 }
 
+/**
+increaseTotalIdle increases the total amount of time spent idle
+Parameter t - amount for idleTime to increase by
+*/
 void Statistics::increaseTotalIdle(int t)
 {
   totalIdleTime += t;
 }
 
+/**
+increaseTotalWait increases the total amount of time spent waiting
+Parameter t - amount for waitTime to increase by
+*/
 void Statistics::increaseTotalWait(int t)
 {
   totalStudentWaitTime += t;
 }
 
+/**
+calculateMean calculates mean
+Parameter times - the number of times the total should be divided by
+Parameter total - the total number of an occurence
+Returns mean
+*/
 double Statistics::calculateMean(int times, int total)
 {
   return (double)total/(double)times;
 }
 
+/**
+findMedian looks through an ordered list of ints and determines the median
+Parameter wait - the list it looks through
+Returns median of the list
+*/
 int Statistics::findMedian(DoublyLinkedList<int>* wait)
 {
   wait->front = wait->front->next;
@@ -123,6 +163,11 @@ int Statistics::findMedian(DoublyLinkedList<int>* wait)
     return wait->front->data;
 }
 
+/**
+addToMedianList adds a number to the list used to calculate median
+Adds it in numerical order
+Parameter num - number to be added
+*/
 void Statistics::addToMedianList(int num)
 {
   ListNode<int> *curr = wait->front;
@@ -143,6 +188,9 @@ void Statistics::addToMedianList(int num)
   }
 }
 
+/**
+Prints the stats!
+*/
 void Statistics::printStats()
 {
   cout << "STATISTICS: " << endl;

@@ -3,10 +3,15 @@
   2278776          2270004
   lasma101@mail.chapman.edu  galem100@mail.chapman.edu
   CS 350 Section 3
-  Assignment #2
+  Assignment #4
 **/
 
-#include "DoubleListNode.h"
+/*
+A queue data structure based off the doubly linked list.
+Supports the usual operations, and is built as a template class.
+*/
+
+#include "DoublyLinkedList.h"
 
 template <class T>
 class Queue
@@ -32,7 +37,11 @@ class Queue
     DoublyLinkedList<T>* myQueue;
 };
 
-//Constructor
+/*
+Overloaded Constructor
+Sets max to param maxSize, numElements to 0
+Initializes myQueue
+*/
 template <class T>
 Queue<T>::Queue(int maxSize)
 {
@@ -41,14 +50,19 @@ Queue<T>::Queue(int maxSize)
   myQueue = new DoublyLinkedList<T>();
 }
 
-//Destructor
+/*
+Destructor
+*/
 template <class T>
 Queue<T>::~Queue()
 {
   delete myQueue;
 }
 
-//Takes a data value and pushes it into queue
+/*
+insert takes a data value and pushes it into queue
+Parameter data - the data value to be inserted
+*/
 template <class T>
 void Queue<T>::insert(T data)
 {
@@ -69,7 +83,10 @@ void Queue<T>::insert(T data)
     cerr << "Your queue is full. You cannot add more.\n";
 }
 
-//Removes the last in value from queue
+/*
+remove removes the last in value from queue
+Returns the value that was removed
+*/
 template <class T>
 T Queue<T>::remove()
 {
@@ -91,21 +108,30 @@ T Queue<T>::remove()
   }
 }
 
-//Looks at last in value of queue
+/*
+peek looks at front value of queue, but does not delete
+Returns front value of queue
+*/
 template <class T>
 T Queue<T>::peek()
 {
   return myQueue->front->data;
 }
 
-//Check if full
+/*
+isFull checks if full
+Returns true if full
+*/
 template <class T>
 bool Queue<T>::isFull()
 {
   return numElements == max;
 }
 
-//Check if empty
+/*
+isEmpty checks if empty
+Returns true if empty
+*/
 template <class T>
 bool Queue<T>::isEmpty()
 {

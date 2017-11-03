@@ -3,8 +3,13 @@
   2278776          2270004
   lasma101@mail.chapman.edu  galem100@mail.chapman.edu
   CS 350 Section 3
-  Assignment #2
+  Assignment #4
 **/
+
+/*
+A window class representing the various registrar windows.
+Can have one student at a time occupying it.
+*/
 
 #include "Student.h"
 
@@ -17,7 +22,6 @@ public:
   bool isOccupied;
   Student studentLeaves();
   int idleTime;
-  //int timeDone;
   Student student;
 };
 
@@ -29,10 +33,11 @@ Window::Window()
 {
   isOccupied = false;
   idleTime = 0;
-  //timeDone = -1;
 }
 
-//Destructor
+/**
+Destructor
+*/
 Window::~Window()
 {
 }
@@ -53,10 +58,10 @@ int Window::acceptStudent(Student s)
 
 /**
 studentLeaves is called when a student leaves
+Returns student who left
 */
 Student Window::studentLeaves()
 {
-  //student = NULL;
   isOccupied = false;
   return student;
 }

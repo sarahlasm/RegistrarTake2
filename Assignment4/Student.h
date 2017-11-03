@@ -3,8 +3,13 @@
   2278776          2270004
   lasma101@mail.chapman.edu  galem100@mail.chapman.edu
   CS 350 Section 3
-  Assignment #2
+  Assignment #4
 **/
+
+/*
+A student class.
+Students can wait in line and acccess windows at the registrar.
+*/
 
 #include <iostream>
 
@@ -24,14 +29,22 @@ public:
   int timeServed;
 };
 
-//Constructor
+/*
+Constructor
+Sets all instnace variables to 0.
+*/
 Student::Student()
 {
   timeNeeded = 0;
   timeWaited = 0;
+  timeEntered = 0;
+  timeServed = 0;
 }
 
-//Constructor with parameters
+/*
+Overloaded Constructor
+Sets timeNeeded and timeEntered to params
+*/
 Student::Student(int timeN, int timeE)
 {
   timeNeeded = timeN;
@@ -40,18 +53,26 @@ Student::Student(int timeN, int timeE)
   timeServed = 0;
 }
 
-//Destructor
+/*
+Destructor
+*/
 Student::~Student()
 {
 }
 
-//Sets time waited for student object to parameter
+/*
+setTimeWaited sets time a student has waited
+Parameter timeW - time the student has waited
+*/
 void Student::setTimeWaited(int timeW)
 {
   timeWaited = timeW;
 }
 
-//Sets time served for student object to parameter 
+/*
+setTimeServed sets the time at which the student was setTimeServed
+Parameter timeS - the time the student was served
+*/
 void Student::setTimeServed(int timeS)
 {
   timeServed = timeS;
