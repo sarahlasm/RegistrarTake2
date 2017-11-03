@@ -148,7 +148,8 @@ int main(int argc, char** argv)
       }
       if (!windows[i].isOccupied)
       {
-        windows[i].idleTime++;
+        if (currTime > 0)
+          windows[i].idleTime++;
         cout << "Window " << i << " idle time " << windows[i].idleTime << endl;
       }
     }

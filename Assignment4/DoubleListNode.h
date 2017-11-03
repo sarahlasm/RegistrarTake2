@@ -57,7 +57,7 @@ public:
   T remove(T key);
   int find(T value);
   T deletePos(int pos);
-  bool insertAfter(int pos, T val); //@TODO
+  T insertAfter(int pos, T val); //@TODO
   bool isEmpty();
   unsigned int getSize();
   unsigned int size;
@@ -310,10 +310,10 @@ T DoublyLinkedList<T>::remove(T key)
 insertAfter inserts a node after a given position
 Parameter pos - position after which the node should be inserted
 Parameter val - value of the node that will be inserted
-Returns true if successful, false otherwise
+Returns value inserted
 */
 template <class T>
-bool DoublyLinkedList<T>::insertAfter(int pos, T val)
+T DoublyLinkedList<T>::insertAfter(int pos, T val)
 {
   int count = 0;
   ListNode<T>* curr = front;
@@ -323,11 +323,20 @@ bool DoublyLinkedList<T>::insertAfter(int pos, T val)
     count++;
   }
   ListNode<T>* node = new ListNode<T>(val);
-  curr->next->prev = node;
-  node->next = curr->next;
-  curr->next = node;
-  node->prev = curr;
+  if (curr->next)
+  {
+    curr->next->prev = node;
+    node->next = curr->next;
+    curr->next = node;
+    node->prev = curr;
+  }
+  else
+  {
+    back = node;
+    back->prev = curr;
+    curr->next = node;
+  }
   delete curr;
-  return 1;
+  return val;
 
 }
