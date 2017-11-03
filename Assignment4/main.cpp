@@ -140,11 +140,9 @@ int main(int argc, char** argv)
         s2 = studentQueue.remove();
         s2.setTimeServed(currTime);
         cout << "Student has been served at time " << s2.timeServed << endl;
-<<<<<<< HEAD
-        s2.setTimeWaited(currTime - s2.timeEntered); ]
-=======
+
         s2.setTimeWaited(currTime - s2.timeEntered);
->>>>>>> 9bfe8ecc01157ef33031fd56e403dd73640a21d8
+        s2.setTimeWaited(currTime - s2.timeEntered);
         cout << currTime << " - " << s2.timeEntered << " = " << s2.timeWaited << endl;
         stats->takeIdle(windows[i].acceptStudent(s2));
       }
