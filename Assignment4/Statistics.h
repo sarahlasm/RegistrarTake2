@@ -19,10 +19,10 @@ class Statistics
   public:
     int totalIdleTime;
     int longestIdleTime;
-    int numOverFive;
+    int numOverFive; //Number of times a window was idle for over 5 minutes
     int totalStudentWaitTime;
     int longestStudentWaitTime;
-    int numOverTen;
+    int numOverTen; //Number of times a student waited for over 10 minutes
     int studentsServed;
     int numWindows;
 
@@ -147,18 +147,18 @@ Returns median of the list
 */
 int Statistics::findMedian(DoublyLinkedList<int>* wait)
 {
-  wait->front = wait->front->next;
+  wait->removeFront();
   while (wait->size > 2)
   {
-    wait->front = wait->front->next;
-    wait->size--;
-    wait->back = wait->back->prev;
-    wait->size--;
+    wait->removeFront();
+    wait->removeBack();
   }
   if (wait->size == 2)
     return ((double)wait->front->data+(double)wait->back->data)/2;
+
   else
     return wait->front->data;
+
 }
 
 /**
@@ -195,6 +195,6 @@ void Statistics::printStats()
   cout << "Mean student wait time: " << calculateMean(studentsServed, totalStudentWaitTime) << endl;
   cout << "Number of students waiting over 10 minutes: " << numOverTen << endl;
   cout << "Longest idle time: " << longestIdleTime << endl;
-  cout << "Mean idle time: " << calculateMean(numWindows, totalIdleTime) << endl; 
-  cout << "Number of windows idle over 5 minutes: " << numOverFive << endl;
+  cout << "Mean idle time: " << calculateMean(numWindows, totalIdleTime) << endl;
+  cout << "Number of times a window was idle over 5 minutes: " << numOverFive << endl;
 }
