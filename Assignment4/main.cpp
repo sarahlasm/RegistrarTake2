@@ -35,6 +35,9 @@ bool allWindowsEmpty(Window windows[], int numWindows)
   return true;
 }
 
+/**
+main performs most of the operations, such as accepting students and tracking the queue.
+*/
 int main(int argc, char** argv)
 {
   if (argc == 1)
@@ -57,7 +60,7 @@ int main(int argc, char** argv)
   int currInput = -1; //currInput tracks the next clock tick at which more students will arive
   while (true)
   {
-    if (currInput != currTime && !nextTimeSelected) //beginning
+    if (currInput != currTime && !nextTimeSelected) //If we don't know when the next student is coming
     {
       nextTimeSelected = true;
       if (getline(inFile, input))
@@ -74,10 +77,10 @@ int main(int argc, char** argv)
         return 0;
       }
     }
-    if (currTime == currInput) //hits 1
+    if (currTime == currInput) //When the next student is ready to come
     {
       nextTimeSelected = false;
-      if (getline(inFile, input))
+      if (getline(inFile, input)) //If there is more to the file
       {
         string studentInput;
         for (int i = 0; i < stoi(input); ++i)
@@ -89,7 +92,6 @@ int main(int argc, char** argv)
           {
             if (j == numWindows)
             {
-              cout << "The time is " << currTime << " and a new student is waiting in line.\n";
               studentQueue.insert(s);
               break;
             }
@@ -104,7 +106,7 @@ int main(int argc, char** argv)
           }
         }
       }
-      else if (!allWindowsEmpty(windows, numWindows))
+      else if (!allWindowsEmpty(windows, numWindows)) //If we've reached the end of the file, but there's still students being served
       {
         currTime++;
         break;
@@ -119,23 +121,21 @@ int main(int argc, char** argv)
       stats->printStats();
       return 0;
     }
-    for (int i = 0; i < numWindows; ++i)
+    for (int i = 0; i < numWindows; ++i) //Iterate through all of the windows
     {
-      if (windows[i].isOccupied && windows[i].student.timeNeeded + windows[i].student.timeServed == currTime)
+      if (windows[i].isOccupied && windows[i].student.timeNeeded + windows[i].student.timeServed == currTime) //If the student at that window is done, leave
       {
         stats->takeStudent(windows[i].studentLeaves());
       }
-      if (!windows[i].isOccupied && !studentQueue.isEmpty())
+      if (!windows[i].isOccupied && !studentQueue.isEmpty()) //If the window is free and there's a student in line, accept him
       {
         s2 = studentQueue.remove();
         s2.setTimeServed(currTime);
 
         s2.setTimeWaited(currTime - s2.timeEntered);
-        s2.setTimeWaited(currTime - s2.timeEntered);
-        cout << currTime << " - " << s2.timeEntered << " = " << s2.timeWaited << endl;
         stats->takeIdle(windows[i].acceptStudent(s2));
       }
-      if (!windows[i].isOccupied)
+      if (!windows[i].isOccupied) //If the window isn't occupied, increment its idle time
       {
         if (currTime > 0)
           windows[i].idleTime++;
