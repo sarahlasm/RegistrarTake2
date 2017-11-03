@@ -1,3 +1,11 @@
+/**
+  Sarah Lasman and Amanda Galemmo
+  2278776          2270004
+  lasma101@mail.chapman.edu  galem100@mail.chapman.edu
+  CS 350 Section 3
+  Assignment #2
+**/
+
 #include <iostream>
 
 using namespace std;
@@ -16,12 +24,14 @@ public:
   int timeServed;
 };
 
+//Constructor
 Student::Student()
 {
   timeNeeded = 0;
   timeWaited = 0;
 }
 
+//Constructor with parameters
 Student::Student(int timeN, int timeE)
 {
   timeNeeded = timeN;
@@ -30,15 +40,18 @@ Student::Student(int timeN, int timeE)
   timeServed = 0;
 }
 
+//Destructor
 Student::~Student()
 {
 }
 
+//Sets time waited for student object to parameter
 void Student::setTimeWaited(int timeW)
 {
   timeWaited = timeW;
 }
 
+//Sets time served for student object to parameter 
 void Student::setTimeServed(int timeS)
 {
   timeServed = timeS;
