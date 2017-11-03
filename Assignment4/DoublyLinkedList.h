@@ -28,7 +28,7 @@ public:
   T remove(T key);
   int find(T value);
   T deletePos(int pos);
-  bool insertAfter(int pos, T val); //@TODO
+  bool insertAfter(int pos, T val);
   bool isEmpty();
   unsigned int getSize();
   unsigned int size;

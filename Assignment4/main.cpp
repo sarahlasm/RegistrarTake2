@@ -9,7 +9,7 @@
 /*
 The crux of the work is done in this class.
 The file is read, instances of various objects are created, and the simulation is conducted.
-It is a bit big for a main class, but it worked best to keep everything in the same class.
+It is a bit big for a main method, but it worked best to keep everything in the same class.
 */
 
 #include "Queue.h"
@@ -45,7 +45,7 @@ int main(int argc, char** argv)
   string fileName = argv[1];
   string input;
   ifstream inFile(fileName);
-  Queue<Student> studentQueue(20);// = new Queue<Student>(20);
+  Queue<Student> studentQueue(20);
   getline(inFile, input);
   int numWindows = stoi(input);
   int currTime = 0;
@@ -59,7 +59,6 @@ int main(int argc, char** argv)
   {
     if (currInput != currTime && !nextTimeSelected) //beginning
     {
-      cout << "if1\n";
       nextTimeSelected = true;
       if (getline(inFile, input))
       {
@@ -67,7 +66,7 @@ int main(int argc, char** argv)
       }
       else if (!allWindowsEmpty(windows, numWindows))
       {
-    //    currTime++;
+        //PLACEHOLDER so that the else can be reached
       }
       else
       {
@@ -77,9 +76,7 @@ int main(int argc, char** argv)
     }
     if (currTime == currInput) //hits 1
     {
-      cout << "if2\n";
       nextTimeSelected = false;
-      //currInput = -1;
       if (getline(inFile, input))
       {
         string studentInput;
@@ -98,16 +95,10 @@ int main(int argc, char** argv)
             }
             if (!windows[j].isOccupied)
             {
-              cout << "The time is " << currTime << " and the student has gone to window " << j << endl;
               s.setTimeServed(currTime);
-              cout << "Student has been served at time " << s.timeServed << endl;
               s.setTimeWaited(0);
-              cout << "cake\n";
               studentQueue.insert(s);
-              //windows[j].acceptStudent(studentQueue.remove());
-              cout << "moon\n";
               stats->takeIdle(windows[j].acceptStudent(studentQueue.remove()));
-              cout << "brains\n";
               break;
             }
           }
@@ -115,7 +106,6 @@ int main(int argc, char** argv)
       }
       else if (!allWindowsEmpty(windows, numWindows))
       {
-        cout << "if3\n";
         currTime++;
         break;
       }
@@ -131,21 +121,14 @@ int main(int argc, char** argv)
     }
     for (int i = 0; i < numWindows; ++i)
     {
-    //  cout << "Is it time for the student to go? " << (windows[i].student.timeNeeded + windows[i].student.timeServed == currTime) << endl;
-      //Student's time runs out, this is definitely sloppy
       if (windows[i].isOccupied && windows[i].student.timeNeeded + windows[i].student.timeServed == currTime)
       {
-        cout << "Was he right to leave? " << (windows[i].student.timeNeeded) << " " << windows[i].student.timeServed << " " << currTime << endl;
-        stats->takeStudent(windows[i].studentLeaves()); //@TODO
-        cout << "The time is " << currTime << " and a student has just left window " << i << endl;
+        stats->takeStudent(windows[i].studentLeaves());
       }
       if (!windows[i].isOccupied && !studentQueue.isEmpty())
       {
-        cout << "The time is " << currTime << " and a student in line has just gone to window " << i << endl;
-        cout << "Current time: " << currTime << endl;
         s2 = studentQueue.remove();
         s2.setTimeServed(currTime);
-        cout << "Student has been served at time " << s2.timeServed << endl;
 
         s2.setTimeWaited(currTime - s2.timeEntered);
         s2.setTimeWaited(currTime - s2.timeEntered);
@@ -156,10 +139,8 @@ int main(int argc, char** argv)
       {
         if (currTime > 0)
           windows[i].idleTime++;
-        cout << "Window " << i << " idle time " << windows[i].idleTime << endl;
       }
     }
-    cout << "This is the end of time " << currTime << endl;
 
     currTime++;
   }

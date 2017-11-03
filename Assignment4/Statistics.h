@@ -90,14 +90,12 @@ void Statistics::takeStudent(Student s)
 {
   studentsServed++;
   int timeWaited = s.timeWaited;
-  cout << "This student had waited: " << timeWaited << endl;
   addToMedianList(timeWaited);
   increaseTotalWait(timeWaited);
   if (timeWaited > 10)
     numOverTen++;
   if (timeWaited > longestStudentWaitTime)
     longestStudentWaitTime = timeWaited;
-  cout << "Total wait time " << totalStudentWaitTime << endl;
 }
 
 /**
@@ -177,9 +175,7 @@ void Statistics::addToMedianList(int num)
     curr = curr->next;
     pos++;
   }
-  cout << "Chocolate\n";
-  wait->insertBack(num); cout << wait->back->data << endl;
-  cout << "Cake\n";
+  wait->insertBack(num);
   curr = NULL;
   curr = wait->front;
   while (curr != NULL)
@@ -199,6 +195,6 @@ void Statistics::printStats()
   cout << "Mean student wait time: " << calculateMean(studentsServed, totalStudentWaitTime) << endl;
   cout << "Number of students waiting over 10 minutes: " << numOverTen << endl;
   cout << "Longest idle time: " << longestIdleTime << endl;
-  cout << "Mean idle time: " << calculateMean(numWindows, totalIdleTime) << endl; //FIND NUM windows
+  cout << "Mean idle time: " << calculateMean(numWindows, totalIdleTime) << endl; 
   cout << "Number of windows idle over 5 minutes: " << numOverFive << endl;
 }
